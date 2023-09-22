@@ -7,7 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.charliekotlin.MainActivity
 import com.example.charliekotlin.databinding.ActivityEasyQuestionCompilationBinding
-import com.example.charliekotlin.home.easy.solution.ChoiceSolutionActivity
+import com.example.charliekotlin.home.easy.retrofit.EasyDTO
+import com.example.charliekotlin.home.solution.SolutionModel
+import com.example.charliekotlin.home.easy.retrofit.EasyService
+import com.example.charliekotlin.home.solution.ChoiceSolutionActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,7 +21,6 @@ class EasyQuestionCompilationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEasyQuestionCompilationBinding
     private lateinit var easyAdapter: EasyQuestionCompilationAdapter
-    private val ResultNumber: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +48,7 @@ class EasyQuestionCompilationActivity : AppCompatActivity() {
         }
     }
 
-    private fun choiceActivityGo(easyModel: EasyModel){
+    private fun choiceActivityGo(easyModel: SolutionModel){
         val intent = Intent(this, ChoiceSolutionActivity::class.java)
         intent.putExtra("title",easyModel.title)
         intent.putExtra("number", easyModel.number)
@@ -63,13 +65,6 @@ class EasyQuestionCompilationActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun solution(number: Int){
-        val result = number % 2
-        when(result){
-            1 -> ResultNumber == 1
-            0 -> ResultNumber == 0
-        }
-    }
 
     private fun getQuestionList() {
         val retrofit = Retrofit.Builder()

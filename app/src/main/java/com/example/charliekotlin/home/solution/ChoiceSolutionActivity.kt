@@ -1,4 +1,4 @@
-package com.example.charliekotlin.home.easy.solution
+package com.example.charliekotlin.home.solution
 
 import android.content.Intent
 import android.os.Bundle

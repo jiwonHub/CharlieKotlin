@@ -25,7 +25,8 @@
         </activity>
         <activity android:name=".home.easy.EasyQuestionCompilationActivity"/>
         <activity android:name=".LoginActivity"/>
-        <activity android:name=".home.easy.solution.ChoiceSolutionActivity"/>
+        <activity android:name=".home.solution.ChoiceSolutionActivity"/>
+        <activity android:name=".home.normal.NormalQuestionCompilationActivity"/>
     </application>
 
 </manifest>

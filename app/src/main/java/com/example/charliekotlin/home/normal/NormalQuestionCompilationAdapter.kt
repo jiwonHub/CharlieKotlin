@@ -1,15 +1,16 @@
-package com.example.charliekotlin.home.easy
+package com.example.charliekotlin.home.normal
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.charliekotlin.databinding.ItemQuestionBinding
+import com.example.charliekotlin.home.easy.EasyQuestionCompilationAdapter
 import com.example.charliekotlin.home.solution.SolutionModel
 
-class EasyQuestionCompilationAdapter(val onItemClicked: (SolutionModel) -> Unit) :
-    ListAdapter<SolutionModel,EasyQuestionCompilationAdapter.ViewHolder>(diffUtil){
+class NormalQuestionCompilationAdapter(val onItemClicked: (SolutionModel) -> Unit) :
+    ListAdapter<SolutionModel, NormalQuestionCompilationAdapter.ViewHolder>(diffUtil){
 
     private var currentList: List<SolutionModel> = emptyList()
 
@@ -26,14 +27,15 @@ class EasyQuestionCompilationAdapter(val onItemClicked: (SolutionModel) -> Unit)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NormalQuestionCompilationAdapter.ViewHolder {
         val binding = ItemQuestionBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NormalQuestionCompilationAdapter.ViewHolder, position: Int) {
         return holder.bind(currentList[position])
     }
+
     inner class ViewHolder(private val binding: ItemQuestionBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item: SolutionModel){
             binding.root.setOnClickListener {
@@ -48,5 +50,4 @@ class EasyQuestionCompilationAdapter(val onItemClicked: (SolutionModel) -> Unit)
         currentList = list ?: emptyList() // Update the current list
         super.submitList(list)
     }
-
 }

@@ -1,5 +1,6 @@
-package com.example.charliekotlin.home.easy
+package com.example.charliekotlin.home.easy.retrofit
 
+import com.example.charliekotlin.home.easy.retrofit.EasyDTO
 import retrofit2.Call
 import retrofit2.http.GET
 

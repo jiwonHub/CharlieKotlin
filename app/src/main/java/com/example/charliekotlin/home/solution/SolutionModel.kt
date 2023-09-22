@@ -1,6 +1,6 @@
-package com.example.charliekotlin.home.easy
+package com.example.charliekotlin.home.solution
 
-data class EasyModel(
+data class SolutionModel(
     val number: String,
     val title: String,
     val difficulty: String,
