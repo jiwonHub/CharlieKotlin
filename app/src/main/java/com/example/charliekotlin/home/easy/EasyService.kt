@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface EasyService {
 
-    @GET("/v3/aebc1190-53a4-4b5d-abf3-8e03b9003412")
+    @GET("/v3/292f9e25-8e13-45d1-bbf1-4816e349dac5")
     fun listQuestions(): Call<EasyDTO>
 }
