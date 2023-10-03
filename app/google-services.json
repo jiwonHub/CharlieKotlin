@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "765122672985",
+    "firebase_url": "https://charlie-kotlin-default-rtdb.firebaseio.com",
+    "project_id": "charlie-kotlin",
+    "storage_bucket": "charlie-kotlin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765122672985:android:77226c5b0e86654da43448",
+        "android_client_info": {
+          "package_name": "com.example.charliekotlin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpo9L5VpLoXEWuw36-IYJCC0IK9R6pZeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
