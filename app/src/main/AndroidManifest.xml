@@ -27,6 +27,9 @@
         <activity android:name=".LoginActivity"/>
         <activity android:name=".home.solution.ChoiceSolutionActivity"/>
         <activity android:name=".home.normal.NormalQuestionCompilationActivity"/>
+        <activity android:name=".home.community.CommunityActivity"/>
+        <activity android:name=".home.community.communitydetail.CommunityDetailActivity"/>
+        <activity android:name=".home.community.CreateCommunityActivity"/>
     </application>
 
 </manifest>
