@@ -16,7 +16,7 @@
         android:textSize="20dp"
         android:layout_marginTop="30dp"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,6 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="20dp"
-        android:text="곧 카카오 로그인"/>
+        android:background="@drawable/kakao_login_medium_wide" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
