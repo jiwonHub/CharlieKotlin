@@ -1,9 +1,12 @@
 package com.example.charliekotlin.home.community
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.charliekotlin.DBKey
+import com.example.charliekotlin.MainActivity
 import com.example.charliekotlin.databinding.ActivityCommunityBinding
 import com.example.charliekotlin.home.community.communitydetail.CommunityDetailActivity
 import com.google.firebase.database.ChildEventListener
@@ -29,21 +32,13 @@ class CommunityActivity: AppCompatActivity() {
             communityAdapter.submitList(communityList)
         }
 
-        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
 
-        }
+        override fun onChildRemoved(snapshot: DataSnapshot) {}
 
-        override fun onChildRemoved(snapshot: DataSnapshot) {
+        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
 
-        }
-
-        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-
-        }
-
-        override fun onCancelled(error: DatabaseError) {
-
-        }
+        override fun onCancelled(error: DatabaseError) {}
 
     }
 
@@ -68,6 +63,27 @@ class CommunityActivity: AppCompatActivity() {
 
         binding.createFloatButton.setOnClickListener {
             val intent = Intent(this, CreateCommunityActivity::class.java)
+            startActivity(intent)
         }
+        binding.backButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.communityRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.communityRecyclerView.adapter = communityAdapter
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        communityDB.removeEventListener(listener)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onResume() {
+        super.onResume()
+
+        communityAdapter.notifyDataSetChanged()
     }
 }

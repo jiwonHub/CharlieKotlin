@@ -1,9 +1,12 @@
 package com.example.charliekotlin.home.solution
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.charliekotlin.MainActivity
 import com.example.charliekotlin.databinding.ActivityResultBinding
+import com.example.charliekotlin.home.community.CommunityActivity
 
 class ResultActivity: AppCompatActivity() {
 
@@ -41,10 +44,13 @@ class ResultActivity: AppCompatActivity() {
         }
 
         binding.communityButton.setOnClickListener {
-
+            val intent = Intent(this, CommunityActivity::class.java)
+            startActivity(intent)
         }
         binding.homeButton.setOnClickListener {
-
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
+
     }
 }

@@ -50,7 +50,7 @@ class ChoiceSolutionActivity: AppCompatActivity() {
 
         binding.choice1.setOnClickListener {
             val intent = Intent(this, ResultActivity::class.java)
-            if (correct == "1") {
+            if (correct == "choice1") {
                 intent.putExtra("resultTitle", "정답입니다!!")
                 intent.putExtra("animation", "y")
                 intent.putExtra("number", number)
@@ -84,7 +84,7 @@ class ChoiceSolutionActivity: AppCompatActivity() {
         }
         binding.choice2.setOnClickListener {
             val intent = Intent(this, ResultActivity::class.java)
-            if (correct == "2") {
+            if (correct == "choice2") {
                 intent.putExtra("resultTitle", "정답입니다!!")
                 intent.putExtra("animation", "y")
                 intent.putExtra("number", number)
@@ -118,7 +118,7 @@ class ChoiceSolutionActivity: AppCompatActivity() {
         }
         binding.choice3.setOnClickListener {
             val intent = Intent(this, ResultActivity::class.java)
-            if (correct == "3") {
+            if (correct == "choice3") {
                 intent.putExtra("resultTitle", "정답입니다!!")
                 intent.putExtra("animation", "y")
                 intent.putExtra("number", number)
@@ -152,7 +152,7 @@ class ChoiceSolutionActivity: AppCompatActivity() {
         }
         binding.choice4.setOnClickListener {
             val intent = Intent(this, ResultActivity::class.java)
-            if (correct == "4") {
+            if (correct == "choice4") {
                 intent.putExtra("resultTitle", "정답입니다!!")
                 intent.putExtra("animation", "y")
                 intent.putExtra("number", number)
@@ -186,7 +186,7 @@ class ChoiceSolutionActivity: AppCompatActivity() {
         }
         binding.choice5.setOnClickListener {
             val intent = Intent(this, ResultActivity::class.java)
-            if (correct == "5") {
+            if (correct == "choice5") {
                 intent.putExtra("resultTitle", "정답입니다!!")
                 intent.putExtra("animation", "y")
                 intent.putExtra("number", number)

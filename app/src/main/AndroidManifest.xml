@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <application
         android:allowBackup="true"
@@ -30,6 +33,7 @@
         <activity android:name=".home.community.CommunityActivity"/>
         <activity android:name=".home.community.communitydetail.CommunityDetailActivity"/>
         <activity android:name=".home.community.CreateCommunityActivity"/>
+        <activity android:name=".home.solution.ResultActivity"/>
     </application>
 
 </manifest>
