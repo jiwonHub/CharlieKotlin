@@ -28,6 +28,8 @@ class HomeQuestionFragment : Fragment(R.layout.fragment_home_question) {
 
         binding.easyLayout.setOnClickListener {
             val intent = Intent(context, EasyQuestionCompilationActivity::class.java)
+            intent.putExtra("USER_NAME", userName)
+            intent.putExtra("USER_IMAGE", userImage)
             startActivity(intent)
         }
         binding.normalLayout.setOnClickListener {

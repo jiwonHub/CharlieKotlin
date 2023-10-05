@@ -2,17 +2,19 @@ package com.example.charliekotlin.home.community
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
-import com.example.charliekotlin.DBKey
 import com.example.charliekotlin.DBKey.Companion.DB_COMMUNITY
 import com.example.charliekotlin.databinding.ActivityCommunityCreateBinding
 import com.google.firebase.database.DatabaseReference
@@ -20,10 +22,20 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 class CreateCommunityActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCommunityCreateBinding
+    private lateinit var userName: String
+    private lateinit var userImage: String
+    private lateinit var uri : String
     private var selectedUri: Uri? = null
     private val storage: FirebaseStorage by lazy {
         Firebase.storage
@@ -31,12 +43,19 @@ class CreateCommunityActivity : AppCompatActivity() {
     private val communityDB: DatabaseReference by lazy {
         Firebase.database.reference.child(DB_COMMUNITY)
     }
+    private lateinit var context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityCommunityCreateBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        userName = intent.getStringExtra("userName").toString()
+        userImage = intent.getStringExtra("userImage").toString()
+
+        Log.d("name", userName)
+        Log.d("image", userImage)
 
         binding.addImageButton.setOnClickListener {
             when {
@@ -121,7 +140,13 @@ class CreateCommunityActivity : AppCompatActivity() {
         imageUri: String,   // 사진 uri
         time: Long
     ) { // 게시글 업로드
-        val model = CommunityData(title, content, imageUri, time) // 게시글 데이터 형식으로 받아온 값들을 model에 저장
+        val model = CommunityData(
+            title,
+            content,
+            imageUri,
+            time
+
+        ) // 게시글 데이터 형식으로 받아온 값들을 model에 저장
         communityDB.push().setValue(model) // 최종적으로 DB에 푸쉬
 
         hideProgress() // 로딩창 숨기기

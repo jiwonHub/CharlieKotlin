@@ -22,6 +22,8 @@ class CommunityActivity: AppCompatActivity() {
     private lateinit var communityDB : DatabaseReference
     private lateinit var communityAdapter : CommunityAdapter
     private val communityList = mutableListOf<CommunityData>()
+    private lateinit var userName: String
+    private lateinit var userImage: String
 
     private val listener = object : ChildEventListener{
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -48,6 +50,9 @@ class CommunityActivity: AppCompatActivity() {
         binding = ActivityCommunityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        userName = intent.getStringExtra("userName").toString()
+        userImage = intent.getStringExtra("userImage").toString()
+
         communityList.clear()
         communityDB = Firebase.database.reference.child(DBKey.DB_COMMUNITY)
         communityAdapter = CommunityAdapter(onItemClicked = { communityData ->
@@ -63,6 +68,8 @@ class CommunityActivity: AppCompatActivity() {
 
         binding.createFloatButton.setOnClickListener {
             val intent = Intent(this, CreateCommunityActivity::class.java)
+            intent.putExtra("userName", userName)
+            intent.putExtra("userImage", userImage)
             startActivity(intent)
         }
         binding.backButton.setOnClickListener {

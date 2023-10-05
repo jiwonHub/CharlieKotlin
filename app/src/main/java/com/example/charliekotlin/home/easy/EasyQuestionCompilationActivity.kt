@@ -21,12 +21,17 @@ class EasyQuestionCompilationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEasyQuestionCompilationBinding
     private lateinit var easyAdapter: EasyQuestionCompilationAdapter
+    private lateinit var userName: String
+    private lateinit var userImage: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityEasyQuestionCompilationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        userName = intent.getStringExtra("USER_NAME").toString()
+        userImage = intent.getStringExtra("USER_IMAGE").toString()
 
         easyAdapter = EasyQuestionCompilationAdapter(onItemClicked = { easyModel ->
             when(easyModel.type){
@@ -62,6 +67,8 @@ class EasyQuestionCompilationActivity : AppCompatActivity() {
         intent.putExtra("choice4", easyModel.choice4)
         intent.putExtra("choice5", easyModel.choice5)
         intent.putExtra("correct", easyModel.correct)
+        intent.putExtra("userName", userName)
+        intent.putExtra("userImage", userImage)
         startActivity(intent)
     }
 

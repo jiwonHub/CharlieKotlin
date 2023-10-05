@@ -10,6 +10,8 @@ import com.example.charliekotlin.home.easy.EasyQuestionCompilationActivity
 class ChoiceSolutionActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityChoiceSolutionBinding
+    private lateinit var userName: String
+    private lateinit var userImage: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,8 @@ class ChoiceSolutionActivity: AppCompatActivity() {
         val choice4 = intent.getStringExtra("choice4")
         val choice5 = intent.getStringExtra("choice5")
         val correct = intent.getStringExtra("correct")
+        userName = intent.getStringExtra("userName").toString()
+        userImage = intent.getStringExtra("userImage").toString()
 
         binding.questionNumber.text = number
         binding.SolutionTitle.text = title
@@ -64,6 +68,8 @@ class ChoiceSolutionActivity: AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
+                intent.putExtra("userName", userName)
+                intent.putExtra("userImage", userImage)
                 startActivity(intent)
             }else{
                 intent.putExtra("resultTitle", "틀렸습니다 ㅜㅜ")
@@ -79,6 +85,8 @@ class ChoiceSolutionActivity: AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
+                intent.putExtra("userName", userName)
+                intent.putExtra("userImage", userImage)
                 startActivity(intent)
             }
         }
@@ -98,6 +106,8 @@ class ChoiceSolutionActivity: AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
+                intent.putExtra("userName", userName)
+                intent.putExtra("userImage", userImage)
                 startActivity(intent)
             }else{
                 intent.putExtra("resultTitle", "틀렸습니다 ㅜㅜ")
@@ -113,6 +123,8 @@ class ChoiceSolutionActivity: AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
+                intent.putExtra("userName", userName)
+                intent.putExtra("userImage", userImage)
                 startActivity(intent)
             }
         }
@@ -132,6 +144,8 @@ class ChoiceSolutionActivity: AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
+                intent.putExtra("userName", userName)
+                intent.putExtra("userImage", userImage)
                 startActivity(intent)
             }else{
                 intent.putExtra("resultTitle", "틀렸습니다 ㅜㅜ")
@@ -147,6 +161,8 @@ class ChoiceSolutionActivity: AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
+                intent.putExtra("userName", userName)
+                intent.putExtra("userImage", userImage)
                 startActivity(intent)
             }
         }
@@ -166,6 +182,8 @@ class ChoiceSolutionActivity: AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
+                intent.putExtra("userName", userName)
+                intent.putExtra("userImage", userImage)
                 startActivity(intent)
             }else{
                 intent.putExtra("resultTitle", "틀렸습니다 ㅜㅜ")
@@ -181,6 +199,8 @@ class ChoiceSolutionActivity: AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
+                intent.putExtra("userName", userName)
+                intent.putExtra("userImage", userImage)
                 startActivity(intent)
             }
         }
@@ -200,6 +220,8 @@ class ChoiceSolutionActivity: AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
+                intent.putExtra("userName", userName)
+                intent.putExtra("userImage", userImage)
                 startActivity(intent)
             }else{
                 intent.putExtra("resultTitle", "틀렸습니다 ㅜㅜ")
@@ -215,6 +237,8 @@ class ChoiceSolutionActivity: AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
+                intent.putExtra("userName", userName)
+                intent.putExtra("userImage", userImage)
                 startActivity(intent)
             }
         }

@@ -11,6 +11,8 @@ import com.example.charliekotlin.home.community.CommunityActivity
 class ResultActivity: AppCompatActivity() {
 
     private lateinit var binding : ActivityResultBinding
+    private lateinit var userName: String
+    private lateinit var userImage: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,8 @@ class ResultActivity: AppCompatActivity() {
         val choice4 = intent.getStringExtra("choice4")
         val choice5 = intent.getStringExtra("choice5")
         val correct = intent.getStringExtra("correct")
+        userName = intent.getStringExtra("userName").toString()
+        userImage = intent.getStringExtra("userImage").toString()
 
         binding.difficulty.text = difficulty
         binding.resultTextView.text = resultTitle
@@ -45,6 +49,8 @@ class ResultActivity: AppCompatActivity() {
 
         binding.communityButton.setOnClickListener {
             val intent = Intent(this, CommunityActivity::class.java)
+            intent.putExtra("userName", userName)
+            intent.putExtra("userImage", userImage)
             startActivity(intent)
         }
         binding.homeButton.setOnClickListener {

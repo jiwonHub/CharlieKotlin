@@ -56,4 +56,5 @@
         <activity android:name=".home.user.UserInformationActivity"/>
     </application>
 
+
 </manifest>
