@@ -95,7 +95,7 @@ class CreateCommunityActivity : AppCompatActivity() {
                 val photoUri = selectedUri ?: return@setOnClickListener
                 uploadPhoto(photoUri,
                     successHandler = { uri ->
-                        uploadCommunity(title, content, uri, time)
+                        uploadCommunity(title, content, uri, time, userName)
                     },
                     errorHandler = {
                         Toast.makeText(this, "사진 업로드에 실패하셨습니다.", Toast.LENGTH_SHORT).show()
@@ -103,7 +103,7 @@ class CreateCommunityActivity : AppCompatActivity() {
                     }
                 )
             } else {
-                uploadCommunity(title, content, "", time)
+                uploadCommunity(title, content, "", time, userName)
             }
         }
         binding.backButton.setOnClickListener {
@@ -138,14 +138,15 @@ class CreateCommunityActivity : AppCompatActivity() {
         title: String,      // 제목
         content: String,    // 내용
         imageUri: String,   // 사진 uri
-        time: Long
+        time: Long,
+        name: String
     ) { // 게시글 업로드
         val model = CommunityData(
             title,
             content,
             imageUri,
-            time
-
+            time,
+            name
         ) // 게시글 데이터 형식으로 받아온 값들을 model에 저장
         communityDB.push().setValue(model) // 최종적으로 DB에 푸쉬
 

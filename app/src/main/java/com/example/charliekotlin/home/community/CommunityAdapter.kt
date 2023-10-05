@@ -26,6 +26,7 @@ class CommunityAdapter(val onItemClicked: (CommunityData) -> Unit) :
             binding.root.setOnClickListener {
                 onItemClicked(item)
             }
+            binding.communityUser.text = item.name
         }
     }
 

@@ -34,6 +34,7 @@ class CommunityDetailActivity: AppCompatActivity() {
         val content = intent.getStringExtra("content")
         val uri = intent.getStringExtra("uri")
         val time = intent.getLongExtra("time", -1)
+        val name = intent.getStringExtra("name")
 
         val postDate = SimpleDateFormat("MM/dd")
         val postTime = SimpleDateFormat("hh:mm")
@@ -48,6 +49,7 @@ class CommunityDetailActivity: AppCompatActivity() {
 
         binding.dateTextView.text = postDate.format(time)
         binding.timeTextView.text = postTime.format(time)
+        binding.profileName.text = name
 
         chatDB = Firebase.database.reference.child(DB_COMMUNITY).child("chat")
 

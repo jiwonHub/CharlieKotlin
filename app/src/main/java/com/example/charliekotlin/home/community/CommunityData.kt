@@ -6,7 +6,8 @@ data class CommunityData(
     val title: String,
     val content: String,
     val uri: String,
-    val time: Long
+    val time: Long,
+    val name: String
 ){
-    constructor() : this("", "", "", 0)
+    constructor() : this("", "", "", 0, "")
 }

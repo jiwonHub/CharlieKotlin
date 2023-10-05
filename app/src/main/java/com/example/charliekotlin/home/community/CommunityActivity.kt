@@ -61,6 +61,7 @@ class CommunityActivity: AppCompatActivity() {
             intent.putExtra("content", communityData.content)
             intent.putExtra("uri", communityData.uri)
             intent.putExtra("time", communityData.time)
+            intent.putExtra("name", communityData.name)
             startActivity(intent)
         })
 
