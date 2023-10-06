@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private lateinit var userName: String
     private lateinit var userImage: String
+    private var userId: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         userName = intent.getStringExtra("USER_NAME") ?: ""
         userImage = intent.getStringExtra("USER_IMAGE") ?: ""
+        userId = intent.getLongExtra("USER_ID" ,0)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
@@ -49,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         val bundle = Bundle().apply {
             putString("USER_NAME", userName)
             putString("USER_IMAGE", userImage)
+            putString("USER_ID", userId.toString())
         }
         fragment.arguments = bundle
         supportFragmentManager.beginTransaction()

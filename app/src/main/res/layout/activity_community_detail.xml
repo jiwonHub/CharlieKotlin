@@ -149,9 +149,14 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/chatRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="350dp"
                 app:layout_constraintTop_toBottomOf="@+id/view"
                 android:layout_marginTop="15dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:layout_constraintTop_toBottomOf="@id/chatRecyclerView"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -35,7 +35,6 @@ class CreateCommunityActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCommunityCreateBinding
     private lateinit var userName: String
     private lateinit var userImage: String
-    private lateinit var uri : String
     private var selectedUri: Uri? = null
     private val storage: FirebaseStorage by lazy {
         Firebase.storage
@@ -43,7 +42,6 @@ class CreateCommunityActivity : AppCompatActivity() {
     private val communityDB: DatabaseReference by lazy {
         Firebase.database.reference.child(DB_COMMUNITY)
     }
-    private lateinit var context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

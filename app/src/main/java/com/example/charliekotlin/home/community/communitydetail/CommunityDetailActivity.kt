@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.charliekotlin.DBKey
+import com.example.charliekotlin.DBKey.Companion.DB_CHAT
 import com.example.charliekotlin.DBKey.Companion.DB_COMMUNITY
 import com.example.charliekotlin.databinding.ActivityCommunityDetailBinding
 import com.google.firebase.database.ChildEventListener
@@ -22,6 +24,7 @@ class CommunityDetailActivity: AppCompatActivity() {
     private val chatList = mutableListOf<CommunityDetailData>()
     private val adapter = CommunityDetailAdapter()
     private var chatDB: DatabaseReference? = null
+    private lateinit var name: String
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +37,7 @@ class CommunityDetailActivity: AppCompatActivity() {
         val content = intent.getStringExtra("content")
         val uri = intent.getStringExtra("uri")
         val time = intent.getLongExtra("time", -1)
-        val name = intent.getStringExtra("name")
+        name = intent.getStringExtra("name").toString()
 
         val postDate = SimpleDateFormat("MM/dd")
         val postTime = SimpleDateFormat("hh:mm")
@@ -51,7 +54,7 @@ class CommunityDetailActivity: AppCompatActivity() {
         binding.timeTextView.text = postTime.format(time)
         binding.profileName.text = name
 
-        chatDB = Firebase.database.reference.child(DB_COMMUNITY).child("chat")
+        chatDB = Firebase.database.reference.child(DB_CHAT).child("chat")
 
         chatDB?.addChildEventListener(object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -75,11 +78,19 @@ class CommunityDetailActivity: AppCompatActivity() {
 
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.chatRecyclerView.adapter = adapter
+        binding.chatRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                binding.communityDetailScrollView.requestDisallowInterceptTouchEvent(true)
+            }
+        })
+
+
 
         binding.chatButton.setOnClickListener {
             val chatTime = System.currentTimeMillis()
             val chatItem = CommunityDetailData(
-                name = "이름",
+                name = name,
                 chat = binding.chatEditText.text.toString(),
                 time = chatTime
             )

@@ -2,13 +2,14 @@ package com.example.charliekotlin.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.charliekotlin.R
 import com.example.charliekotlin.databinding.FragmentHomeBinding
 import com.example.charliekotlin.home.inner.HomeQuestionFragment
-import com.example.charliekotlin.home.inner.HomeWrongFragment
+import com.example.charliekotlin.home.inner.wrong.HomeWrongFragment
 import com.example.charliekotlin.home.user.UserInformationActivity
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -19,6 +20,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var userName: String
     private lateinit var userImage: String
+    private lateinit var userId: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,6 +34,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val bundle = arguments
         userName = bundle?.getString("USER_NAME").orEmpty()
         userImage = bundle?.getString("USER_IMAGE").orEmpty()
+        userId = bundle?.getString("USER_ID").orEmpty()
 
         replaceFragment(questionFragment)
 
@@ -58,6 +61,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val bundle = Bundle().apply {
             putString("USER_NAME", userName)
             putString("USER_IMAGE", userImage)
+            putString("USER_ID", userId)
         }
         fragment.arguments = bundle
         childFragmentManager.beginTransaction()

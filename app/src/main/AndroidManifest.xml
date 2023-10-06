@@ -54,6 +54,7 @@
         <activity android:name=".home.community.CreateCommunityActivity"/>
         <activity android:name=".home.solution.ResultActivity"/>
         <activity android:name=".home.user.UserInformationActivity"/>
+        <activity android:name=".home.inner.wrong.WrongDetailActivity"/>
     </application>
 
 

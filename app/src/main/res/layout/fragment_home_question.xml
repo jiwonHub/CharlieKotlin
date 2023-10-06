@@ -29,6 +29,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="30dp"
+                android:layout_gravity="center"
                 android:background="@drawable/easy_shape"
                 android:orientation="vertical">
 
@@ -155,6 +156,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="30dp"
+                android:layout_gravity="center"
                 android:background="@drawable/normal_shape"
                 android:orientation="vertical">
 
@@ -281,6 +283,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="30dp"
+                android:layout_gravity="center"
                 android:background="@drawable/hard_shape"
                 android:orientation="vertical">
 
@@ -408,6 +411,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/hell_shape"
+                android:layout_gravity="center"
                 android:orientation="vertical">
 
                 <ImageView

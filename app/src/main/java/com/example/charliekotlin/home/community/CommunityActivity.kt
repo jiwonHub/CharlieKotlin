@@ -24,6 +24,7 @@ class CommunityActivity: AppCompatActivity() {
     private val communityList = mutableListOf<CommunityData>()
     private lateinit var userName: String
     private lateinit var userImage: String
+    private lateinit var userId: String
 
     private val listener = object : ChildEventListener{
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -52,6 +53,7 @@ class CommunityActivity: AppCompatActivity() {
 
         userName = intent.getStringExtra("userName").toString()
         userImage = intent.getStringExtra("userImage").toString()
+        userId = intent.getStringExtra("userId").toString()
 
         communityList.clear()
         communityDB = Firebase.database.reference.child(DBKey.DB_COMMUNITY)

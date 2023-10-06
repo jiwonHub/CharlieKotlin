@@ -23,6 +23,7 @@ class CommunityAdapter(val onItemClicked: (CommunityData) -> Unit) :
 
         fun bind(item: CommunityData){
             binding.communityTitle.text = item.title
+            binding.communityContent.text = item.content
             binding.root.setOnClickListener {
                 onItemClicked(item)
             }

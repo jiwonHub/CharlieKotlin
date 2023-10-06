@@ -55,9 +55,11 @@ class LoginActivity : AppCompatActivity() {
                                         "\n회원번호: ${user.id}" +
                                         "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
                                         "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
+                                val userId = user.id
                                 val username = user.kakaoAccount?.profile?.nickname
                                 val userImage = user.kakaoAccount?.profile?.thumbnailImageUrl
                                 val intent = Intent(applicationContext, MainActivity::class.java).apply {
+                                    putExtra("USER_ID", userId)
                                     putExtra("USER_NAME",username)
                                     putExtra("USER_IMAGE",userImage)
                                 }
@@ -78,9 +80,11 @@ class LoginActivity : AppCompatActivity() {
                                 "\n회원번호: ${user.id}" +
                                 "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
                                 "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
+                        val userId = user.id
                         val username = user.kakaoAccount?.profile?.nickname
                         val userImage = user.kakaoAccount?.profile?.thumbnailImageUrl
                         val intent = Intent(applicationContext, MainActivity::class.java).apply {
+                            putExtra("USER_ID", userId)
                             putExtra("USER_NAME",username)
                             putExtra("USER_IMAGE",userImage)
                         }

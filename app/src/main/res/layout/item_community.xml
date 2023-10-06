@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/round_black"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:layout_marginTop="15dp">
 
     <TextView
         android:id="@+id/communityTitle"
@@ -27,7 +28,8 @@
         android:layout_margin="15dp"
         android:text="게시글 내용"
         android:textStyle="bold"
-        android:textSize="15dp"
+        android:textSize="13dp"
+        android:maxLines="1"
         android:textColor="@color/black"/>
 
     <TextView
