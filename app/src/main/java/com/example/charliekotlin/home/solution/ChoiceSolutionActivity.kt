@@ -71,9 +71,6 @@ class ChoiceSolutionActivity : AppCompatActivity() {
 
         })
 
-        val totalAttempts = correctPer + wrongPer
-        val ratio = if (totalAttempts > 0) correctPer.toDouble() / totalAttempts else 0.0
-
         userName = sharedPreferences.getString("USER_NAME", "") ?: ""
         userId = sharedPreferences.getLong("USER_ID", 0).toString()
         userImage = sharedPreferences.getString("USER_IMAGE", "") ?: ""
@@ -89,7 +86,6 @@ class ChoiceSolutionActivity : AppCompatActivity() {
         binding.choice3.text = choice3
         binding.choice4.text = choice4
         binding.choice5.text = choice5
-        binding.answerPercentage.text = "$ratio%"
 
         binding.backButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)

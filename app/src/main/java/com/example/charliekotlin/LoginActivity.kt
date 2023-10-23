@@ -2,10 +2,12 @@ package com.example.charliekotlin
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.charliekotlin.databinding.ActivityLoginBinding
+import com.example.charliekotlin.databinding.ActivityMainBinding
 import com.example.charliekotlin.home.user.UserInformationActivity
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
@@ -15,6 +17,9 @@ import com.kakao.sdk.user.UserApiClient
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var userName_: String
+    private lateinit var userImage_: String
+    private var userId_: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -60,11 +65,16 @@ class LoginActivity : AppCompatActivity() {
                                 val userId = user.id
                                 val username = user.kakaoAccount?.profile?.nickname
                                 val userImage = user.kakaoAccount?.profile?.thumbnailImageUrl
-                                val intent = Intent(applicationContext, MainActivity::class.java).apply {
-                                    putExtra("USER_ID", userId)
-                                    putExtra("USER_NAME",username)
-                                    putExtra("USER_IMAGE",userImage)
-                                }
+
+                                val sharedPreferences = getSharedPreferences("kakao", MODE_PRIVATE)
+                                val editor : SharedPreferences.Editor =  sharedPreferences.edit()
+
+                                editor.putString("USER_NAME", username)
+                                editor.putLong("USER_ID", userId!!)
+                                editor.putString("USER_IMAGE", userImage)
+                                editor.commit()
+
+                                val intent = Intent(applicationContext, MainActivity::class.java)
                                 startActivity(intent) //인트로 실행 후 바로 MainActivity로 넘어감.
                                 finish()
                             }
@@ -85,11 +95,16 @@ class LoginActivity : AppCompatActivity() {
                         val userId = user.id
                         val username = user.kakaoAccount?.profile?.nickname
                         val userImage = user.kakaoAccount?.profile?.thumbnailImageUrl
-                        val intent = Intent(applicationContext, MainActivity::class.java).apply {
-                            putExtra("USER_ID", userId)
-                            putExtra("USER_NAME",username)
-                            putExtra("USER_IMAGE",userImage)
-                        }
+
+                        val sharedPreferences = getSharedPreferences("kakao", MODE_PRIVATE)
+                        val editor : SharedPreferences.Editor =  sharedPreferences.edit()
+
+                        editor.putString("USER_NAME", username)
+                        editor.putLong("USER_ID", userId!!)
+                        editor.putString("USER_IMAGE", userImage)
+                        editor.commit()
+
+                        val intent = Intent(applicationContext, MainActivity::class.java)
                         startActivity(intent) //인트로 실행 후 바로 MainActivity로 넘어감.
                         finish()
                     }

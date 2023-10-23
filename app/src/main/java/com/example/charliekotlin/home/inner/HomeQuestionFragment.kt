@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.charliekotlin.R
 import com.example.charliekotlin.databinding.FragmentHomeQuestionBinding
@@ -23,6 +24,12 @@ class HomeQuestionFragment : Fragment(R.layout.fragment_home_question) {
 
         val fragmentHomeQuestionBinding = FragmentHomeQuestionBinding.bind(view)
         binding = fragmentHomeQuestionBinding
+
+        val sharedPreferences = requireActivity().getSharedPreferences("kakao", AppCompatActivity.MODE_PRIVATE)
+
+        userName = sharedPreferences.getString("USER_NAME", "") ?: ""
+        userId = sharedPreferences.getLong("USER_ID", 0).toString()
+        userImage = sharedPreferences.getString("USER_IMAGE", "") ?: ""
 
         binding.easyLayout.setOnClickListener {
             val intent = Intent(context, EasyQuestionCompilationActivity::class.java)

@@ -33,16 +33,10 @@ class MainActivity : AppCompatActivity() {
         val calendarFragment = CalendarFragment()
 
         val sharedPreferences = getSharedPreferences("kakao", MODE_PRIVATE)
-        val editor : SharedPreferences.Editor =  sharedPreferences.edit()
 
-        userName = intent.getStringExtra("USER_NAME") ?: ""
-        userImage = intent.getStringExtra("USER_IMAGE") ?: ""
-        userId = intent.getLongExtra("USER_ID" ,0)
-
-        editor.putString("USER_NAME", userName)
-        editor.putLong("USER_ID", userId)
-        editor.putString("USER_IMAGE", userImage)
-        editor.commit()
+        userName = sharedPreferences.getString("USER_NAME", "") ?: ""
+        userId = sharedPreferences.getLong("USER_ID", 0)
+        userImage = sharedPreferences.getString("USER_IMAGE", "") ?: ""
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
