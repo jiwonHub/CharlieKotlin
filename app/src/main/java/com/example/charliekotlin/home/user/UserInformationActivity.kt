@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.charliekotlin.MainActivity
 import com.example.charliekotlin.databinding.ActivityUserInformationBinding
 import com.example.charliekotlin.home.community.CommunityActivity
 
@@ -42,6 +43,10 @@ class UserInformationActivity : AppCompatActivity() {
 
         binding.rankButton.setOnClickListener {
             val intent = Intent(this, RankActivity::class.java)
+            startActivity(intent)
+        }
+        binding.backButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }

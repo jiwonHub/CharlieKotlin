@@ -69,6 +69,10 @@ class RankActivity: AppCompatActivity() {
             }
         }
         rankDB.addValueEventListener(rankValue)
+
+        binding.backButton.setOnClickListener {
+            finish()
+        }
     }
 
     private fun updateRankAndNotifyAdapter() {
