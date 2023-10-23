@@ -65,8 +65,8 @@ class ResultActivity: AppCompatActivity() {
         percentDB = FirebaseDatabase.getInstance().reference.child(DB_PER).child(number)
         percentDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                correctPer = snapshot.child("correctPer").getValue(Int::class.java)!!
-                wrongPer = snapshot.child("wrongPer").getValue(Int::class.java)!!
+                correctPer = snapshot.child("correctPer").getValue(Int::class.java)?:0
+                wrongPer = snapshot.child("wrongPer").getValue(Int::class.java)?:0
                 Log.d("correct", correctPer.toString())
                 Log.d("wrong", wrongPer.toString())
                 if (animation == "n"){

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.charliekotlin.calendar.CalendarFragment
 import com.example.charliekotlin.databinding.ActivityMainBinding
 import com.example.charliekotlin.home.HomeFragment
+import com.example.charliekotlin.home.summary.SummaryFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.security.MessageDigest
 
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         val homeFragment = HomeFragment()
         val calendarFragment = CalendarFragment()
+        val summaryFragment = SummaryFragment()
 
         val sharedPreferences = getSharedPreferences("kakao", MODE_PRIVATE)
 
@@ -46,6 +48,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.navigation_home -> replaceFragment(homeFragment)
                 R.id.navigation_calendar -> replaceFragment(calendarFragment)
+                R.id.navidation_study -> replaceFragment(summaryFragment)
             }
             true
         }

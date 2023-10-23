@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/easyNumber1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                android:textSize="30dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="1. 변수 선언"/>
+
+            <TextView
+                android:id="@+id/number1comment"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/easyNumber1"
+                app:layout_constraintTop_toBottomOf="@id/easyNumber1"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:text="● 'val' 키워드로 불변(immutable)변수를 선언합니다."
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/number1comment2"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/number1comment"
+                app:layout_constraintTop_toBottomOf="@id/number1comment"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="10dp"
+                android:text="● 'var' 키워드로 가변(mutable) 변수를 선언합니다."
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/number1code1"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/number1comment2"
+                app:layout_constraintStart_toStartOf="@id/number1comment2"
+                android:layout_marginTop="15dp"
+                android:padding="10dp"
+                android:text="val pi = 3.14\nvar count = 0"
+                android:background="@drawable/rectangle_black"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/easyNumber2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/number1code1"
+                app:layout_constraintStart_toStartOf="@id/easyNumber1"
+                android:layout_marginTop="15dp"
+                android:textSize="30dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="2. 자료형 추론"/>
+
+            <TextView
+                android:id="@+id/number2comment"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/easyNumber2"
+                app:layout_constraintTop_toBottomOf="@id/easyNumber2"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:text="● Kotlin은 자료형 추론을 지원하며 변수에 명시적으로 자료형을 지정하지 않아도 됩니다."
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/number2code1"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/number2comment"
+                app:layout_constraintStart_toStartOf="@id/number2comment"
+                android:layout_marginTop="15dp"
+                android:padding="10dp"
+                android:text="val name = 'Alice'"
+                android:background="@drawable/rectangle_black"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/easyNumber3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/number2code1"
+                app:layout_constraintStart_toStartOf="@id/easyNumber1"
+                android:layout_marginTop="15dp"
+                android:textSize="30dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="3. 함수 정의"/>
+
+            <TextView
+                android:id="@+id/number3comment"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/easyNumber3"
+                app:layout_constraintTop_toBottomOf="@id/easyNumber3"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:text="● 'fun' 키워드를 사용하여 함수를 정의합니다."
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/number3code1"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/number3comment"
+                app:layout_constraintStart_toStartOf="@id/number3comment"
+                android:layout_marginTop="15dp"
+                android:padding="10dp"
+                android:text="fun add(a: Int, b: Int): Int {\n\t\t\treturn a + b\n}"
+                android:background="@drawable/rectangle_black"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/easyNumber4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/number3code1"
+                app:layout_constraintStart_toStartOf="@id/easyNumber1"
+                android:layout_marginTop="15dp"
+                android:textSize="30dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="4. 클래스와 객체"/>
+
+            <TextView
+                android:id="@+id/number4comment"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/easyNumber4"
+                app:layout_constraintTop_toBottomOf="@id/easyNumber4"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:text="● 클래스는 class 키워드로 정의하며, 객체는 new 키워드를 사용하지 않고 생성합니다."
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/number4code1"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/number4comment"
+                app:layout_constraintStart_toStartOf="@id/number4comment"
+                android:layout_marginTop="15dp"
+                android:padding="10dp"
+                android:text="class Person(val name: String, val age: Int)\n\nval person = Person('Bob', 30)"
+                android:background="@drawable/rectangle_black"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/easyNumber5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/number4code1"
+                app:layout_constraintStart_toStartOf="@id/easyNumber1"
+                android:layout_marginTop="15dp"
+                android:textSize="30dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="5. 확장 함수"/>
+
+            <TextView
+                android:id="@+id/number5comment"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/easyNumber5"
+                app:layout_constraintTop_toBottomOf="@id/easyNumber5"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:text="● 이미 존재하는 클래스에 새로운 함수를 추가하는 확장 함수를 정의할 수 있습니다."
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/number5code1"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/number5comment"
+                app:layout_constraintStart_toStartOf="@id/number5comment"
+                android:layout_marginTop="15dp"
+                android:padding="10dp"
+                android:text="fun String.toTitleCase() : String {\n\t\t\treturn this.split('\t').joinToString(' ') { it.capitalize() }\n}"
+                android:background="@drawable/rectangle_black"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -54,15 +54,16 @@ class ChoiceSolutionActivity : AppCompatActivity() {
         percentDB = FirebaseDatabase.getInstance().reference.child(DBKey.DB_PER).child(number)
         percentDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                correctPer = snapshot.child("correctPer").getValue(Int::class.java)!!
-                wrongPer = snapshot.child("wrongPer").getValue(Int::class.java)!!
+                correctPer = snapshot.child("correctPer").getValue(Int::class.java)?:0
+                wrongPer = snapshot.child("wrongPer").getValue(Int::class.java)?:0
                 val totalValue = correctPer + wrongPer
                 val percent: Double = if (totalValue > 0){
                     (correctPer.toDouble() / totalValue) * 100.0
                 }else{
                     0.0
                 }
-                binding.answerPercentage.text = "$percent%"
+                val formattedPercent = String.format("%.2f", percent)
+                binding.answerPercentage.text = "$formattedPercent%"
             }
 
             override fun onCancelled(error: DatabaseError) {

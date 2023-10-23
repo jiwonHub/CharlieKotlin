@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/summary_easy"
+        android:title="기초" />
+    <item
+        android:id="@+id/summary_normal"
+        android:title="보통"/>
+    <item
+        android:id="@+id/summary_hard"
+        android:title="고급"/>
+</menu>
