@@ -39,5 +39,10 @@ class UserInformationActivity : AppCompatActivity() {
             val intent = Intent(this, CommunityActivity::class.java)
             startActivity(intent)
         }
+
+        binding.rankButton.setOnClickListener {
+            val intent = Intent(this, RankActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

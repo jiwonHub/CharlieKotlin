@@ -6,5 +6,6 @@ class DBKey {
         const val DB_CHAT = "Chat"
         const val DB_WRONG = "WrongAnswer"
         const val DB_PER = "Percent"
+        const val DB_RANK = "Rank"
     }
 }

@@ -1,11 +1,13 @@
 package com.example.charliekotlin.home.solution
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.charliekotlin.DBKey.Companion.DB_PER
+import com.example.charliekotlin.DBKey.Companion.DB_RANK
 import com.example.charliekotlin.DBKey.Companion.DB_WRONG
 import com.example.charliekotlin.MainActivity
 import com.example.charliekotlin.Presets
@@ -34,8 +36,10 @@ class ResultActivity: AppCompatActivity() {
         Firebase.database.reference.child(DB_WRONG).child(userId)
     }
     private lateinit var percentDB: DatabaseReference
+    private lateinit var rankDB: DatabaseReference
     private var correctPer: Int = 0
     private var wrongPer: Int = 0
+    private var rankPoint: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +66,13 @@ class ResultActivity: AppCompatActivity() {
         val correctComment = intent.getStringExtra("correctComment")
         val sharedPreferences = getSharedPreferences("kakao", AppCompatActivity.MODE_PRIVATE)
 
+        userName = sharedPreferences.getString("USER_NAME", "") ?: ""
+        userId = sharedPreferences.getLong("USER_ID", 0).toString()
+        userImage = sharedPreferences.getString("USER_IMAGE", "") ?: ""
+
         percentDB = FirebaseDatabase.getInstance().reference.child(DB_PER).child(number)
+        rankDB = FirebaseDatabase.getInstance().reference.child(DB_RANK).child(userId)
+
         percentDB.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 correctPer = snapshot.child("correctPer").getValue(Int::class.java)?:0
@@ -100,16 +110,56 @@ class ResultActivity: AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+
+
+        rankDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            @SuppressLint("SetTextI18n")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                rankPoint = snapshot.child("rankPoint").getValue(Int::class.java)?:1000
+                if (animation == "n"){
+                    when(difficulty){
+                        "쉬움" -> {
+                            rankPoint -= 10
+                            binding.score.text = rankPoint.toString()
+                            binding.scoreChange.text = "(-10)"
+                        }
+                        "보통" -> {
+                            rankPoint -= 10
+                            binding.score.text = rankPoint.toString()
+                            binding.scoreChange.text = "(-10)"
+                        }
+                    }
+                    updateRankPointInFirebase(rankPoint)
+                }else{
+                    when(difficulty){
+                        "쉬움" -> {
+                            rankPoint += 10
+                            binding.score.text = rankPoint.toString()
+                            binding.scoreChange.text = "(+10)"
+                        }
+                        "보통" -> {
+                            rankPoint += 10
+                            binding.score.text = rankPoint.toString()
+                            binding.scoreChange.text = "(+10)"
+                        }
+                    }
+                    updateRankPointInFirebase(rankPoint)
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
 
         })
+
         Log.d("correct1", correctPer.toString())
         Log.d("wrong1", wrongPer.toString())
-
-        userName = sharedPreferences.getString("USER_NAME", "") ?: ""
-        userId = sharedPreferences.getLong("USER_ID", 0).toString()
-        userImage = sharedPreferences.getString("USER_IMAGE", "") ?: ""
 
         binding.difficulty.text = difficulty
         binding.resultTextView.text = resultTitle
@@ -174,4 +224,10 @@ class ResultActivity: AppCompatActivity() {
     private fun updateWrongPerInFirebase(wrongPer: Int) {
         percentDB.child("wrongPer").setValue(wrongPer)
     }
+
+    private fun updateRankPointInFirebase(rankPoint: Int) {
+        rankDB.child("rankPoint").setValue(rankPoint)
+        rankDB.child("userName").setValue(userName)
+    }
+
 }
