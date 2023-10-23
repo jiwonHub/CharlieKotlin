@@ -24,16 +24,8 @@ class HomeQuestionFragment : Fragment(R.layout.fragment_home_question) {
         val fragmentHomeQuestionBinding = FragmentHomeQuestionBinding.bind(view)
         binding = fragmentHomeQuestionBinding
 
-        val bundle = arguments
-        userName = bundle?.getString("USER_NAME").orEmpty()
-        userImage = bundle?.getString("USER_IMAGE").orEmpty()
-        userId = bundle?.getString("USER_ID").orEmpty()
-
         binding.easyLayout.setOnClickListener {
             val intent = Intent(context, EasyQuestionCompilationActivity::class.java)
-            intent.putExtra("USER_NAME", userName)
-            intent.putExtra("USER_IMAGE", userImage)
-            intent.putExtra("USER_ID", userId)
             startActivity(intent)
         }
         binding.normalLayout.setOnClickListener {

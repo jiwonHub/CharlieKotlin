@@ -2,6 +2,7 @@ package com.example.charliekotlin.home.community.communitydetail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,9 @@ class CommunityDetailActivity: AppCompatActivity() {
     private val adapter = CommunityDetailAdapter()
     private var chatDB: DatabaseReference? = null
     private lateinit var name: String
+    private lateinit var userName: String
+    private lateinit var userId: String
+    private lateinit var userImage: String
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +42,14 @@ class CommunityDetailActivity: AppCompatActivity() {
         val uri = intent.getStringExtra("uri")
         val time = intent.getLongExtra("time", -1)
         name = intent.getStringExtra("name").toString()
+
+        val sharedPreferences = getSharedPreferences("kakao", MODE_PRIVATE)
+
+        userName = sharedPreferences.getString("USER_NAME", "") ?: ""
+        userId = sharedPreferences.getLong("USER_ID", 0).toString()
+        userImage = sharedPreferences.getString("USER_IMAGE", "") ?: ""
+
+
 
         val postDate = SimpleDateFormat("MM/dd")
         val postTime = SimpleDateFormat("hh:mm")

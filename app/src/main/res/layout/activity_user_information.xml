@@ -69,6 +69,19 @@
         android:textSize="40dp"
         android:textColor="@color/black"
         android:textStyle="bold"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/communityButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/kakaoName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/kakaoName"
+        app:layout_constraintBottom_toBottomOf="@id/kakaoName"
+        android:background="@drawable/rectangle_black"
+        android:text="게시판"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="17dp"/>
 
     <View
         android:id="@+id/view"

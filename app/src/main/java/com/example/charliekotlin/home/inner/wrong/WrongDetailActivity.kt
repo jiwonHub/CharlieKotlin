@@ -10,8 +10,9 @@ import com.example.charliekotlin.home.community.CommunityActivity
 class WrongDetailActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityWrongDetailBinding
-    private lateinit var id: String
-    private lateinit var name: String
+    private lateinit var userId: String
+    private lateinit var userName: String
+    private lateinit var userImage: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,8 +20,12 @@ class WrongDetailActivity: AppCompatActivity() {
         binding = ActivityWrongDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        id = intent.getStringExtra("id").toString()
-        name = intent.getStringExtra("name").toString()
+        val sharedPreferences = getSharedPreferences("kakao", AppCompatActivity.MODE_PRIVATE)
+
+        userName = sharedPreferences.getString("USER_NAME", "") ?: ""
+        userId = sharedPreferences.getLong("USER_ID", 0).toString()
+        userImage = sharedPreferences.getString("USER_IMAGE", "") ?: ""
+
         val title = intent.getStringExtra("title")
         val content = intent.getStringExtra("content")
         val number = intent.getStringExtra("number")
@@ -34,6 +39,8 @@ class WrongDetailActivity: AppCompatActivity() {
         val choice3 = intent.getStringExtra("choice3")
         val choice4 = intent.getStringExtra("choice4")
         val choice5 = intent.getStringExtra("choice5")
+        val comment = intent.getStringExtra("comment")
+        val correctComment = intent.getStringExtra("correctComment")
 
         binding.questionNumber.text = number
         binding.SolutionTitle.text = title
@@ -46,6 +53,8 @@ class WrongDetailActivity: AppCompatActivity() {
         binding.choice3.text = choice3
         binding.choice4.text = choice4
         binding.choice5.text = choice5
+        binding.comment.text = comment
+        binding.correctComment.text= correctComment
 
         val correctNumber = correct!!.substring(6)
         when(select){
@@ -65,9 +74,13 @@ class WrongDetailActivity: AppCompatActivity() {
 
         binding.communityButton.setOnClickListener {
             val intent = Intent(this,CommunityActivity::class.java)
-            intent.putExtra("userName", name)
-            intent.putExtra("userId", id)
+            intent.putExtra("userName", userName)
+            intent.putExtra("userId", userId)
             startActivity(intent)
+        }
+
+        binding.backButton.setOnClickListener {
+            finish()
         }
     }
 }

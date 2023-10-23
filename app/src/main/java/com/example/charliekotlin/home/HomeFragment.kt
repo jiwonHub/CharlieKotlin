@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.charliekotlin.R
 import com.example.charliekotlin.databinding.FragmentHomeBinding
@@ -31,10 +32,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val questionFragment = HomeQuestionFragment()
         val wrongFragment = HomeWrongFragment()
 
-        val bundle = arguments
-        userName = bundle?.getString("USER_NAME").orEmpty()
-        userImage = bundle?.getString("USER_IMAGE").orEmpty()
-        userId = bundle?.getString("USER_ID").orEmpty()
+        val sharedPreferences = requireActivity().getSharedPreferences("kakao", AppCompatActivity.MODE_PRIVATE)
+
+        userName = sharedPreferences.getString("USER_NAME", "") ?: ""
+        userId = sharedPreferences.getLong("USER_ID", 0).toString()
+        userImage = sharedPreferences.getString("USER_IMAGE", "") ?: ""
 
         replaceFragment(questionFragment)
 
@@ -50,20 +52,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         binding.userButton.setOnClickListener {
             val intent = Intent(context, UserInformationActivity::class.java)
-            intent.putExtra("USER_NAME", userName)
-            intent.putExtra("USER_IMAGE", userImage)
             startActivity(intent)
         }
 
     }
 
     private fun replaceFragment(fragment: Fragment) { // 클릭한 바텀 네비게이션 종류에 따라 프래그먼트 변경
-        val bundle = Bundle().apply {
-            putString("USER_NAME", userName)
-            putString("USER_IMAGE", userImage)
-            putString("USER_ID", userId)
-        }
-        fragment.arguments = bundle
         childFragmentManager.beginTransaction()
             .apply {
                 replace(R.id.fragmentContainer_home, fragment)

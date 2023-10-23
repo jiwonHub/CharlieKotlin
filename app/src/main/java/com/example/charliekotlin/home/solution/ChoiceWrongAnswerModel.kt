@@ -16,6 +16,8 @@ data class ChoiceWrongAnswerModel(
     val choice3: String,
     val choice4: String,
     val choice5: String,
+    val comment: String,
+    val correctComment: String
 ){
-    constructor() : this("", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
+    constructor() : this("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
 }

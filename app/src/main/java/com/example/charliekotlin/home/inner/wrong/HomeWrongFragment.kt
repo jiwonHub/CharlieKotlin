@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.charliekotlin.DBKey
@@ -24,6 +25,7 @@ class HomeWrongFragment : Fragment(R.layout.fragment_home_wrong) {
     private var binding : FragmentHomeWrongBinding? = null
     private lateinit var userId: String
     private lateinit var userName: String
+    private lateinit var userImage: String
     private lateinit var wrongDB: DatabaseReference
     private val wrongList = mutableListOf<ChoiceWrongAnswerModel>()
     private lateinit var wrongAdapter : WrongAdapter
@@ -61,11 +63,11 @@ class HomeWrongFragment : Fragment(R.layout.fragment_home_wrong) {
         val fragmentHomeWrongBinding = FragmentHomeWrongBinding.bind(view)
         binding = fragmentHomeWrongBinding
 
-        val bundle = arguments
-        userName = bundle?.getString("USER_NAME").orEmpty()
-        userId = bundle?.getString("USER_ID").orEmpty()
+        val sharedPreferences = requireActivity().getSharedPreferences("kakao", AppCompatActivity.MODE_PRIVATE)
 
-        Log.d("userId", userId)
+        userName = sharedPreferences.getString("USER_NAME", "") ?: ""
+        userId = sharedPreferences.getLong("USER_ID", 0).toString()
+        userImage = sharedPreferences.getString("USER_IMAGE", "") ?: ""
         
         wrongList.clear()
         wrongDB = Firebase.database.reference.child(DB_WRONG).child(userId)
@@ -88,6 +90,8 @@ class HomeWrongFragment : Fragment(R.layout.fragment_home_wrong) {
             intent.putExtra("choice3", choiceWrongAnswerModel.choice3)
             intent.putExtra("choice4", choiceWrongAnswerModel.choice4)
             intent.putExtra("choice5", choiceWrongAnswerModel.choice5)
+            intent.putExtra("comment", choiceWrongAnswerModel.comment)
+            intent.putExtra("correctComment", choiceWrongAnswerModel.correctComment)
             startActivity(intent)
         })
 

@@ -1,8 +1,10 @@
 package com.example.charliekotlin.home.community
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.charliekotlin.DBKey
@@ -23,8 +25,8 @@ class CommunityActivity: AppCompatActivity() {
     private lateinit var communityAdapter : CommunityAdapter
     private val communityList = mutableListOf<CommunityData>()
     private lateinit var userName: String
-    private lateinit var userImage: String
     private lateinit var userId: String
+    private lateinit var userImage: String
 
     private val listener = object : ChildEventListener{
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -51,9 +53,11 @@ class CommunityActivity: AppCompatActivity() {
         binding = ActivityCommunityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userName = intent.getStringExtra("userName").toString()
-        userImage = intent.getStringExtra("userImage").toString()
-        userId = intent.getStringExtra("userId").toString()
+        val sharedPreferences = getSharedPreferences("kakao", MODE_PRIVATE)
+
+        userName = sharedPreferences.getString("USER_NAME", "") ?: ""
+        userId = sharedPreferences.getLong("USER_ID", 0).toString()
+        userImage = sharedPreferences.getString("USER_IMAGE", "") ?: ""
 
         communityList.clear()
         communityDB = Firebase.database.reference.child(DBKey.DB_COMMUNITY)
@@ -71,8 +75,6 @@ class CommunityActivity: AppCompatActivity() {
 
         binding.createFloatButton.setOnClickListener {
             val intent = Intent(this, CreateCommunityActivity::class.java)
-            intent.putExtra("userName", userName)
-            intent.putExtra("userImage", userImage)
             startActivity(intent)
         }
         binding.backButton.setOnClickListener {

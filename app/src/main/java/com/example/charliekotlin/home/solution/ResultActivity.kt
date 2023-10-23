@@ -5,13 +5,22 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.charliekotlin.DBKey.Companion.DB_PER
 import com.example.charliekotlin.DBKey.Companion.DB_WRONG
 import com.example.charliekotlin.MainActivity
 import com.example.charliekotlin.Presets
 import com.example.charliekotlin.databinding.ActivityResultBinding
 import com.example.charliekotlin.home.community.CommunityActivity
+import com.example.charliekotlin.home.community.CommunityAdapter
+import com.example.charliekotlin.home.community.CommunityData
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 class ResultActivity: AppCompatActivity() {
@@ -20,9 +29,13 @@ class ResultActivity: AppCompatActivity() {
     private lateinit var userName: String
     private lateinit var userImage: String
     private lateinit var userId: String
+    private lateinit var number: String
     private val wrongAnswerDB: DatabaseReference by lazy {
         Firebase.database.reference.child(DB_WRONG).child(userId)
     }
+    private lateinit var percentDB: DatabaseReference
+    private var correctPer: Int = 0
+    private var wrongPer: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +46,7 @@ class ResultActivity: AppCompatActivity() {
         val resultTitle = intent.getStringExtra("resultTitle")
         val animation = intent.getStringExtra("animation")
         val title = intent.getStringExtra("title")
-        val number = intent.getStringExtra("number")
+        number = intent.getStringExtra("number").toString()
         val difficulty = intent.getStringExtra("difficulty")
         val explan = intent.getStringExtra("explan")
         val limit = intent.getStringExtra("limit")
@@ -45,42 +58,65 @@ class ResultActivity: AppCompatActivity() {
         val choice5 = intent.getStringExtra("choice5")
         val correct = intent.getStringExtra("correct")
         val select = intent.getStringExtra("select")
-        userName = intent.getStringExtra("userName").toString()
-        userImage = intent.getStringExtra("userImage").toString()
-        userId = intent.getStringExtra("userId").toString()
+        val comment = intent.getStringExtra("comment")
+        val correctComment = intent.getStringExtra("correctComment")
+        val sharedPreferences = getSharedPreferences("kakao", AppCompatActivity.MODE_PRIVATE)
+
+        percentDB = FirebaseDatabase.getInstance().reference.child(DB_PER).child(number)
+        percentDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                correctPer = snapshot.child("correctPer").getValue(Int::class.java)!!
+                wrongPer = snapshot.child("wrongPer").getValue(Int::class.java)!!
+                Log.d("correct", correctPer.toString())
+                Log.d("wrong", wrongPer.toString())
+                if (animation == "n"){
+                    binding.konfettiView.visibility = View.GONE
+                    saveWrongAnswer(
+                        userId,
+                        userName,
+                        title!!,
+                        content!!,
+                        number,
+                        difficulty!!,
+                        explan!!,
+                        limit!!,
+                        select!!,
+                        correct!!,
+                        choice1!!,
+                        choice2!!,
+                        choice3!!,
+                        choice4!!,
+                        choice5!!,
+                        comment!!,
+                        correctComment!!
+                    )
+                    wrongPer++
+                    updateWrongPerInFirebase(wrongPer)
+                }else{
+                    binding.konfettiView.start(Presets.parade())
+                    correctPer++
+                    updateCorrectPerInFirebase(correctPer)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+        Log.d("correct1", correctPer.toString())
+        Log.d("wrong1", wrongPer.toString())
+
+        userName = sharedPreferences.getString("USER_NAME", "") ?: ""
+        userId = sharedPreferences.getLong("USER_ID", 0).toString()
+        userImage = sharedPreferences.getString("USER_IMAGE", "") ?: ""
 
         binding.difficulty.text = difficulty
         binding.resultTextView.text = resultTitle
         binding.questionTitle.text = title
 
-        if (animation == "n"){
-            binding.konfettiView.visibility = View.GONE
-            saveWrongAnswer(
-                userId,
-                userName,
-                title!!,
-                content!!,
-                number!!,
-                difficulty!!,
-                explan!!,
-                limit!!,
-                select!!,
-                correct!!, // null
-                choice1!!,
-                choice2!!,
-                choice3!!,
-                choice4!!,
-                choice5!!
-            )
-        }else{
-            binding.konfettiView.start(Presets.parade())
-        }
-
         binding.communityButton.setOnClickListener {
             val intent = Intent(this, CommunityActivity::class.java)
-            intent.putExtra("userName", userName)
-            intent.putExtra("userImage", userImage)
-            intent.putExtra("userId", userId)
             startActivity(intent)
         }
         binding.homeButton.setOnClickListener {
@@ -106,6 +142,8 @@ class ResultActivity: AppCompatActivity() {
         choice3: String,
         choice4: String,
         choice5: String,
+        comment: String,
+        correctComment: String
     ){
         val model = ChoiceWrongAnswerModel(
             id,
@@ -123,8 +161,17 @@ class ResultActivity: AppCompatActivity() {
             choice3,
             choice4,
             choice5,
+            comment,
+            correctComment
         )
         wrongAnswerDB.push().setValue(model)
     }
 
+    private fun updateCorrectPerInFirebase(correctPer: Int) {
+        percentDB.child("correctPer").setValue(correctPer)
+    }
+
+    private fun updateWrongPerInFirebase(wrongPer: Int) {
+        percentDB.child("wrongPer").setValue(wrongPer)
+    }
 }

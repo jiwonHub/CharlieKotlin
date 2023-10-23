@@ -1,7 +1,10 @@
 package com.example.charliekotlin
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.pm.PackageManager
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
@@ -19,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userName: String
     private lateinit var userImage: String
     private var userId: Long = 0
+    @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,9 +32,17 @@ class MainActivity : AppCompatActivity() {
         val homeFragment = HomeFragment()
         val calendarFragment = CalendarFragment()
 
+        val sharedPreferences = getSharedPreferences("kakao", MODE_PRIVATE)
+        val editor : SharedPreferences.Editor =  sharedPreferences.edit()
+
         userName = intent.getStringExtra("USER_NAME") ?: ""
         userImage = intent.getStringExtra("USER_IMAGE") ?: ""
         userId = intent.getLongExtra("USER_ID" ,0)
+
+        editor.putString("USER_NAME", userName)
+        editor.putLong("USER_ID", userId)
+        editor.putString("USER_IMAGE", userImage)
+        editor.commit()
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
@@ -48,12 +60,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment) { // 클릭한 바텀 네비게이션 종류에 따라 프래그먼트 변경
-        val bundle = Bundle().apply {
-            putString("USER_NAME", userName)
-            putString("USER_IMAGE", userImage)
-            putString("USER_ID", userId.toString())
-        }
-        fragment.arguments = bundle
         supportFragmentManager.beginTransaction()
             .apply {
                 replace(R.id.fragmentContainer, fragment)

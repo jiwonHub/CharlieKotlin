@@ -13,5 +13,7 @@ data class SolutionModel(
     val choice3: String,
     val choice4: String,
     val choice5: String,
-    val correct: String
+    val correct: String,
+    val comment: String,
+    val correctComment: String
 )

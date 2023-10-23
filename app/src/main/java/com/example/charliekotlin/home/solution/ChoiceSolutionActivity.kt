@@ -1,12 +1,21 @@
 package com.example.charliekotlin.home.solution
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.charliekotlin.DBKey
 import com.example.charliekotlin.MainActivity
 import com.example.charliekotlin.databinding.ActivityChoiceSolutionBinding
 import com.example.charliekotlin.home.easy.EasyQuestionCompilationActivity
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class ChoiceSolutionActivity : AppCompatActivity() {
 
@@ -14,7 +23,12 @@ class ChoiceSolutionActivity : AppCompatActivity() {
     private lateinit var userName: String
     private lateinit var userImage: String
     private lateinit var userId: String
+    private lateinit var number: String
+    private var correctPer: Int = 0
+    private var wrongPer: Int = 0
+    private lateinit var percentDB: DatabaseReference
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -22,7 +36,7 @@ class ChoiceSolutionActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val title = intent.getStringExtra("title")
-        val number = intent.getStringExtra("number")
+        number = intent.getStringExtra("number").toString()
         val difficulty = intent.getStringExtra("difficulty")
         val explan = intent.getStringExtra("explan")
         val limit = intent.getStringExtra("limit")
@@ -33,9 +47,36 @@ class ChoiceSolutionActivity : AppCompatActivity() {
         val choice4 = intent.getStringExtra("choice4")
         val choice5 = intent.getStringExtra("choice5")
         val correct = intent.getStringExtra("correct")
-        userName = intent.getStringExtra("userName").toString()
-        userImage = intent.getStringExtra("userImage").toString()
-        userId = intent.getStringExtra("userId").toString()
+        val comment = intent.getStringExtra("comment")
+        val correctComment = intent.getStringExtra("correctComment")
+        val sharedPreferences = getSharedPreferences("kakao", MODE_PRIVATE)
+
+        percentDB = FirebaseDatabase.getInstance().reference.child(DBKey.DB_PER).child(number)
+        percentDB.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                correctPer = snapshot.child("correctPer").getValue(Int::class.java)!!
+                wrongPer = snapshot.child("wrongPer").getValue(Int::class.java)!!
+                val totalValue = correctPer + wrongPer
+                val percent: Double = if (totalValue > 0){
+                    (correctPer.toDouble() / totalValue) * 100.0
+                }else{
+                    0.0
+                }
+                binding.answerPercentage.text = "$percent%"
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+        val totalAttempts = correctPer + wrongPer
+        val ratio = if (totalAttempts > 0) correctPer.toDouble() / totalAttempts else 0.0
+
+        userName = sharedPreferences.getString("USER_NAME", "") ?: ""
+        userId = sharedPreferences.getLong("USER_ID", 0).toString()
+        userImage = sharedPreferences.getString("USER_IMAGE", "") ?: ""
 
         binding.questionNumber.text = number
         binding.SolutionTitle.text = title
@@ -48,6 +89,7 @@ class ChoiceSolutionActivity : AppCompatActivity() {
         binding.choice3.text = choice3
         binding.choice4.text = choice4
         binding.choice5.text = choice5
+        binding.answerPercentage.text = "$ratio%"
 
         binding.backButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -72,9 +114,8 @@ class ChoiceSolutionActivity : AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
-                intent.putExtra("userName", userName)
-                intent.putExtra("userImage", userImage)
-                intent.putExtra("userId", userId)
+                intent.putExtra("comment", comment)
+                intent.putExtra("correctComment", correctComment)
                 intent.putExtra("select", "1")
                 startActivity(intent)
             } else {
@@ -92,9 +133,8 @@ class ChoiceSolutionActivity : AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
-                intent.putExtra("userName", userName)
-                intent.putExtra("userImage", userImage)
-                intent.putExtra("userId", userId)
+                intent.putExtra("comment", comment)
+                intent.putExtra("correctComment", correctComment)
                 intent.putExtra("select", "1")
                 startActivity(intent)
             }
@@ -116,9 +156,8 @@ class ChoiceSolutionActivity : AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
-                intent.putExtra("userName", userName)
-                intent.putExtra("userImage", userImage)
-                intent.putExtra("userId", userId)
+                intent.putExtra("comment", comment)
+                intent.putExtra("correctComment", correctComment)
                 intent.putExtra("select", "2")
                 startActivity(intent)
             } else {
@@ -136,9 +175,8 @@ class ChoiceSolutionActivity : AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
-                intent.putExtra("userName", userName)
-                intent.putExtra("userImage", userImage)
-                intent.putExtra("userId", userId)
+                intent.putExtra("comment", comment)
+                intent.putExtra("correctComment", correctComment)
                 intent.putExtra("select", "2")
                 startActivity(intent)
             }
@@ -160,9 +198,8 @@ class ChoiceSolutionActivity : AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
-                intent.putExtra("userName", userName)
-                intent.putExtra("userImage", userImage)
-                intent.putExtra("userId", userId)
+                intent.putExtra("comment", comment)
+                intent.putExtra("correctComment", correctComment)
                 intent.putExtra("select", "3")
                 startActivity(intent)
             } else {
@@ -180,9 +217,8 @@ class ChoiceSolutionActivity : AppCompatActivity() {
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("correct", correct)
                 intent.putExtra("choice5", choice5)
-                intent.putExtra("userName", userName)
-                intent.putExtra("userImage", userImage)
-                intent.putExtra("userId", userId)
+                intent.putExtra("comment", comment)
+                intent.putExtra("correctComment", correctComment)
                 intent.putExtra("select", "3")
                 startActivity(intent)
             }
@@ -204,9 +240,8 @@ class ChoiceSolutionActivity : AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
-                intent.putExtra("userName", userName)
-                intent.putExtra("userImage", userImage)
-                intent.putExtra("userId", userId)
+                intent.putExtra("comment", comment)
+                intent.putExtra("correctComment", correctComment)
                 intent.putExtra("select", "4")
                 startActivity(intent)
             } else {
@@ -224,9 +259,8 @@ class ChoiceSolutionActivity : AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
-                intent.putExtra("userName", userName)
-                intent.putExtra("userImage", userImage)
-                intent.putExtra("userId", userId)
+                intent.putExtra("comment", comment)
+                intent.putExtra("correctComment", correctComment)
                 intent.putExtra("select", "4")
                 startActivity(intent)
             }
@@ -248,9 +282,8 @@ class ChoiceSolutionActivity : AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
-                intent.putExtra("userName", userName)
-                intent.putExtra("userImage", userImage)
-                intent.putExtra("userId", userId)
+                intent.putExtra("comment", comment)
+                intent.putExtra("correctComment", correctComment)
                 intent.putExtra("select", "5")
                 startActivity(intent)
             } else {
@@ -268,9 +301,8 @@ class ChoiceSolutionActivity : AppCompatActivity() {
                 intent.putExtra("choice3", choice3)
                 intent.putExtra("choice4", choice4)
                 intent.putExtra("choice5", choice5)
-                intent.putExtra("userName", userName)
-                intent.putExtra("userImage", userImage)
-                intent.putExtra("userId", userId)
+                intent.putExtra("comment", comment)
+                intent.putExtra("correctComment", correctComment)
                 intent.putExtra("select", "5")
                 startActivity(intent)
             }

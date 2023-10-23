@@ -34,7 +34,7 @@ class CreateCommunityActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCommunityCreateBinding
     private lateinit var userName: String
-    private lateinit var userImage: String
+    private lateinit var userId: String
     private var selectedUri: Uri? = null
     private val storage: FirebaseStorage by lazy {
         Firebase.storage
@@ -49,11 +49,10 @@ class CreateCommunityActivity : AppCompatActivity() {
         binding = ActivityCommunityCreateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userName = intent.getStringExtra("userName").toString()
-        userImage = intent.getStringExtra("userImage").toString()
+        val sharedPreferences = getSharedPreferences("kakao", MODE_PRIVATE)
 
-        Log.d("name", userName)
-        Log.d("image", userImage)
+        userName = sharedPreferences.getString("USER_NAME", "") ?: ""
+        userId = sharedPreferences.getLong("USER_ID", 0).toString()
 
         binding.addImageButton.setOnClickListener {
             when {
@@ -118,7 +117,7 @@ class CreateCommunityActivity : AppCompatActivity() {
         storage.reference.child("community/photo").child(fileName) // firebase storage 저장 경로 설정.
             .putFile(uri) // uri 넣기
             .addOnCompleteListener {
-                if (it.isSuccessful) { // uri put이 성공했다면 실제로 uri에 해당하는 사진을 업로드 시작.
+                if (it.isSuccessful) { // uri put이 성공했다면 사진 다운로드 url을 얻는다.
                     storage.reference.child("community/photo").child(fileName)
                         .downloadUrl
                         .addOnSuccessListener { uri ->      // 성공 시 성공 핸들러에 해당하는 일 시작.

@@ -31,9 +31,11 @@ class EasyQuestionCompilationActivity : AppCompatActivity() {
         binding = ActivityEasyQuestionCompilationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userName = intent.getStringExtra("USER_NAME").toString()
-        userImage = intent.getStringExtra("USER_IMAGE").toString()
-        userId = intent.getStringExtra("USER_ID").toString()
+        val sharedPreferences = getSharedPreferences("kakao", AppCompatActivity.MODE_PRIVATE)
+
+        userName = sharedPreferences.getString("USER_NAME", "") ?: ""
+        userId = sharedPreferences.getLong("USER_ID", 0).toString()
+        userImage = sharedPreferences.getString("USER_IMAGE", "") ?: ""
 
         easyAdapter = EasyQuestionCompilationAdapter(onItemClicked = { easyModel ->
             when(easyModel.type){
@@ -69,9 +71,8 @@ class EasyQuestionCompilationActivity : AppCompatActivity() {
         intent.putExtra("choice4", easyModel.choice4)
         intent.putExtra("choice5", easyModel.choice5)
         intent.putExtra("correct", easyModel.correct)
-        intent.putExtra("userName", userName)
-        intent.putExtra("userImage", userImage)
-        intent.putExtra("userId", userId)
+        intent.putExtra("comment", easyModel.comment)
+        intent.putExtra("correctComment", easyModel.correctComment)
         startActivity(intent)
     }
 
