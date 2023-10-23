@@ -3,9 +3,15 @@ package com.example.charliekotlin.home.inner.wrong
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.charliekotlin.DBKey
 import com.example.charliekotlin.R
 import com.example.charliekotlin.databinding.ActivityWrongDetailBinding
 import com.example.charliekotlin.home.community.CommunityActivity
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class WrongDetailActivity: AppCompatActivity() {
 
@@ -13,6 +19,10 @@ class WrongDetailActivity: AppCompatActivity() {
     private lateinit var userId: String
     private lateinit var userName: String
     private lateinit var userImage: String
+    private lateinit var number: String
+    private var correctPer: Int = 0
+    private var wrongPer: Int = 0
+    private lateinit var percentDB: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +38,7 @@ class WrongDetailActivity: AppCompatActivity() {
 
         val title = intent.getStringExtra("title")
         val content = intent.getStringExtra("content")
-        val number = intent.getStringExtra("number")
+        number = intent.getStringExtra("number").toString()
         val difficulty = intent.getStringExtra("difficulty")
         val explan = intent.getStringExtra("explan")
         val limit = intent.getStringExtra("limit")
@@ -55,6 +65,27 @@ class WrongDetailActivity: AppCompatActivity() {
         binding.choice5.text = choice5
         binding.comment.text = comment
         binding.correctComment.text= correctComment
+
+        percentDB = FirebaseDatabase.getInstance().reference.child(DBKey.DB_PER).child(number)
+        percentDB.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                correctPer = snapshot.child("correctPer").getValue(Int::class.java)?:0
+                wrongPer = snapshot.child("wrongPer").getValue(Int::class.java)?:0
+                val totalValue = correctPer + wrongPer
+                val percent: Double = if (totalValue > 0){
+                    (correctPer.toDouble() / totalValue) * 100.0
+                }else{
+                    0.0
+                }
+                val formattedPercent = String.format("%.2f", percent)
+                binding.answerPercentage.text = "$formattedPercent%"
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
 
         val correctNumber = correct!!.substring(6)
         when(select){
