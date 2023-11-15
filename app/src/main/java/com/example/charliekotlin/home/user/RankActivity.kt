@@ -65,7 +65,7 @@ class RankActivity: AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
         }
         rankDB.addValueEventListener(rankValue)
